@@ -1,5 +1,5 @@
 * {
-  font-family: "Merienda";
+  font-family: "Merienda", sans-serif;
   margin: 0;
   padding: 0;
   -webkit-box-sizing: border-box;
@@ -9,6 +9,14 @@
 ul,
 li {
   list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
 }
 
 .container {
@@ -31,6 +39,8 @@ li {
   -webkit-box-align: end;
       -ms-flex-align: end;
           align-items: end;
+}
+.main ul a {
   font-weight: 400;
   font-size: 12px;
   color: #fff;
@@ -138,4 +148,108 @@ h2 {
   text-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
   text-align: center;
   width: 589px;
+}
+
+.our_best {
+  padding-top: 80px;
+  padding-bottom: 110px;
+  background: url(../images/paper.jpg);
+  background-repeat: no-repeat;
+  background-size: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+.our_best__title {
+  color: black;
+  text-align: center;
+}
+.our_best__items {
+  margin-top: 40px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 70px;
+}
+.our_best-item {
+  width: 220px;
+  height: 240px;
+  background: rgba(255, 255, 255, 0.65);
+  border-radius: 5%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding: 20px;
+  gap: 10px;
+  font-weight: 400;
+  font-size: 14px;
+  color: black;
+  text-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+}
+.our_best-item__img {
+  height: 135px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+.our_best-item__price {
+  -ms-flex-item-align: end;
+      -ms-grid-row-align: end;
+      align-self: end;
+}
+
+footer {
+  padding: 30px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+footer ul {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 40px;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: end;
+}
+footer ul a {
+  font-weight: 700;
+  font-size: 12px;
+  color: black;
+  text-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+}
+footer ul li {
+  text-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+}
+footer ul li:first-child::before {
+  content: url(../images/beans2.png);
+}
+footer:after {
+  margin-top: 30px;
+  content: url(../images/beans-black.svg);
 }

@@ -1,16 +1,38 @@
+import { useEffect, useState } from "react";
+import { CoffeeService } from "../services/CoffeeService";
+import Navbar from "../components/Navbar";
 const MainPage = () => {
+
+    const {getBest, process, setProcess} = CoffeeService();
+    const [coffee, setCoffee] = useState([]);
+
+    useEffect(() => {
+        getBest("http://localhost:3001/our best")
+            .then(res => setCoffee(res))
+            .then(() => setProcess('fetched'))
+    }, [getBest, setProcess])
+    console.log('render')
+
+    function renderCards(coffee) {
+        const elems = coffee.map((item, i) => {
+            return (
+                <li className="our_best-item" key={i}>
+                    <div className="our_best-item__img">
+                        <img src={`coffee-images/${item.image}`} alt="coffee-img"/>
+                    </div>
+                    <span className="our_best-item__title">{item.name}</span>
+                    <span className="our_best-item__price">{item.price}</span>
+                </li>
+            )
+        })
+        return elems;
+    }
     return (
         <>
             <section className="main">
                 <div className="container">
                     <header>
-                        <nav>
-                            <ul>
-                                <li>Coffee house</li>
-                                <li>Our coffee</li>
-                                <li>For yout pleasure</li>
-                            </ul>
-                        </nav>
+                        <Navbar/>
                     </header>
                     <div className="main__title">
                         <h1>Everything You Love About Coffee</h1>
@@ -35,8 +57,20 @@ const MainPage = () => {
                         living depend son repair day ladies now.</p>
                 </div>
             </section>
+            <section className="our_best">
+                <div className="container">
+                    <h2 className="our_best__title">Our best</h2>
+                    <ul className="our_best__items">
+                        {process === 'fetched' ? renderCards(coffee) : null}
+                    </ul>
+                </div>
+            </section>
+            <footer>
+                <Navbar/>
+            </footer>
         </>
     )
 }
+
 
 export default MainPage;
