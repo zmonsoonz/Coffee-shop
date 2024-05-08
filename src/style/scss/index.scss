@@ -1,0 +1,87 @@
+* {
+    font-family: "Merienda", sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+ul,
+li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+button {
+    cursor: pointer;
+}
+
+@mixin font($weight, $size, $color:#fff) {
+    font-weight: $weight;
+    font-size: $size;
+    color: $color;
+    text-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+}
+
+.container {
+    max-width: 1440px - 300px;
+    margin: 0px auto;
+}
+
+
+h1 {
+    @include font(700, 40px);
+}
+
+h2 {
+    @include font(700, 24px);
+}
+p {
+    @include font(400, 14px, black);
+}
+
+
+header {
+    padding-top: 30px;
+    ul {
+        display: flex;
+        gap: 40px;
+        align-items: end;
+        a {
+            @include font(400, 12px);
+        }
+        li {
+            text-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+            &:first-child::before {
+                content: url(../../images/beans.png);
+            }
+        }
+    }
+}
+
+footer {
+    padding: 30px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    ul {
+        display: flex;
+        gap: 40px;
+        align-items: end;
+        a {
+            @include font(700, 12px, black);
+        }
+        li {
+            text-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+            &:first-child::before {
+                content: url(../../images/beans2.png);
+            }
+        }
+    }
+    &:after {
+        margin-top: 30px;
+        content: url(../../images/beans-black.svg);
+    }
+}

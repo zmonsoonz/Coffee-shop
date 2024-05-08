@@ -1,0 +1,100 @@
+* {
+  font-family: "Merienda", sans-serif;
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+ul,
+li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+.container {
+  max-width: 1140px;
+  margin: 0px auto;
+}
+
+h1 {
+  font-weight: 700;
+  font-size: 40px;
+  color: #fff;
+  text-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+}
+
+h2 {
+  font-weight: 700;
+  font-size: 24px;
+  color: #fff;
+  text-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+}
+
+header ul {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 40px;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: end;
+}
+header ul a {
+  font-weight: 400;
+  font-size: 12px;
+  color: #fff;
+  text-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+}
+header ul li {
+  text-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+}
+header ul li:first-child::before {
+  content: url(../images/beans.png);
+}
+
+footer {
+  padding: 30px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+footer ul {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 40px;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: end;
+}
+footer ul a {
+  font-weight: 700;
+  font-size: 12px;
+  color: black;
+  text-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+}
+footer ul li {
+  text-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+}
+footer ul li:first-child::before {
+  content: url(../images/beans2.png);
+}
+footer:after {
+  margin-top: 30px;
+  content: url(../images/beans-black.svg);
+}

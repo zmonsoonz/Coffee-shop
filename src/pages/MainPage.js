@@ -35,7 +35,7 @@ const MainPage = () => {
                         <Navbar/>
                     </header>
                     <div className="main__title">
-                        <h1>Everything You Love About Coffee</h1>
+                        <h1 className="main__title__main">Everything You Love About Coffee</h1>
                         <h2 className="main__title__text">We makes every day full of energy and taste</h2>
                         <h2 className="main__title__text">Want to try our beans?</h2>
                         <button className="main__title__btn">More</button>
