@@ -62,5 +62,10 @@
             "country": "Brazil",
             "price": "6.99$"
         }
+    ],
+    "filters": [
+        "Brazil",
+        "Kenya",
+        "Columbia"
     ]
 }

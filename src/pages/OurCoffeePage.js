@@ -5,29 +5,48 @@ import { useState, useEffect } from "react";
 const OurCoffee = () => {
 
     const {getBest, process, setProcess} = CoffeeService();
-    const [coffee, setCoffee] = useState([]);
+    const [cards, setCards] = useState([]);
+    const [filteredCards, setFilteredCards] = useState([]);
+    const [filters, setFilters] = useState([]);
+    const [search, setSearch] = useState("");
 
     useEffect(() => {
         getBest("http://localhost:3001/all coffee")
-            .then(res => setCoffee(res))
+            .then(res => {setCards(res);setFilteredCards(res)})
             .then(() => setProcess('fetched'))
+        getBest("http://localhost:3001/filters")
+            .then(res => setFilters(res));
     }, [getBest, setProcess])
 
-    function renderCards(coffee) {
-        const elems = coffee.map((item, i) => {
+    function renderCards(cards) {
+        const elems = cards.map((item, i) => {
             return (
-                <li className="filters_coffee-item" key={i}>
-                    <div className="filters_coffee-item__img">
-                        <img src={`coffee-images/${item.image}`} alt="coffee-img"/>
-                    </div>
-                    <span className="filters_coffee-item__title">{item.name}</span>
-                    <span className="filters_coffee-item__country">{item.country}</span>
-                    <span className="filters_coffee-item__price">{item.price}</span>
-                </li>
+                <a href="#">
+                    <li className="filters_coffee-item" key={i}>
+                        <div className="filters_coffee-item__img">
+                            <img src={`coffee-images/${item.image}`} alt="coffee-img"/>
+                        </div>
+                        <span className="filters_coffee-item__title">{item.name}</span>
+                        <span className="filters_coffee-item__country">{item.country}</span>
+                        <span className="filters_coffee-item__price">{item.price}</span>
+                    </li>
+                </a>
             )
         })
         return elems;
     }
+    const filterState = (filter, cards, btn) => {
+        const elems = cards.filter(item => item.country === filter)
+        setFilteredCards(elems);
+        document.getElementsByClassName("filter_btn");
+        btn.target.classList.add("active")
+    }
+    const filterSearch = (value, cards) => {
+        setSearch(value);
+        const elems = cards.filter(item => item.country.slice(0, value.length) == value);
+        setFilteredCards(elems);
+    }
+
     return (
         <>
             <section className="head">
@@ -41,7 +60,7 @@ const OurCoffee = () => {
             <section className="about_beans">
                 <div className="container flex">
                     <img src="coffee-images/aboutbeans.png" alt="beans"/>
-                    <span className="dsds">
+                    <span>
                         <h2 className="about_beans__title">About our beans</h2>
                         <p className="about_beans__text">Extremity sweetness difficult behaviour he of. On disposal of as landlord horrible.<br/><br/>
                             Afraid at highly months do things on at. Situation<br/>recommend objection do intention<br/>
@@ -57,19 +76,22 @@ const OurCoffee = () => {
                     <div className="flex">
                         <div className="search">
                             <label htmlFor="search-inp">Looking for</label>
-                            <input type="text" id="search-inp" name="search" placeholder="start typing here..." ></input>
+                            <input type="text" id="search-inp" 
+                                   name="search" placeholder="start typing here..."
+                                   onChange={(e) => filterSearch(e.target.value, cards)}
+                                   value={search}></input>
                         </div>
                         <div className="filters">
-                            <label htmlFor="search">Or filter</label>
+                            <label onClick={() => setFilteredCards(cards)} htmlFor="search">Or filter</label>
                             <span className="filters__btns">
-                                <button>Brazil</button>
-                                <button>Kenya</button>
-                                <button>Columbia</button>
+                                <button className="filter_btn" onClick={(e) => filterState("Brazil", cards, e)}>Brazil</button>
+                                <button className="filter_btn" onClick={(e) => filterState("Kenya", cards, e)}>Kenya</button>
+                                <button className="filter_btn" onClick={(e) => filterState("Columbia", cards, e)}>Columbia</button>
                             </span>
                         </div>
                     </div>
                     <ul className="filters_coffee__items">
-                        {process === 'fetched' ? renderCards(coffee) : null}
+                        {process === 'fetched' ? renderCards(filteredCards) : null}
                     </ul>
                 </div>
             </section>
