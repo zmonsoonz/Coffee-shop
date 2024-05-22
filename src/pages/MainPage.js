@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import { CoffeeService } from "../services/CoffeeService";
 import Navbar from "../components/Navbar";
+import { Link } from "react-router-dom";
+import { CSSTransition } from "react-transition-group";
+
 const MainPage = () => {
 
     const {getBest, process, setProcess} = CoffeeService();
@@ -10,19 +13,23 @@ const MainPage = () => {
         getBest("http://localhost:3001/our best")
             .then(res => setCoffee(res))
             .then(() => setProcess('fetched'))
+            .catch(e => console.log(e))
     }, [getBest, setProcess])
-    console.log('render')
 
     function renderCards(coffee) {
         const elems = coffee.map((item, i) => {
             return (
-                <li className="our_best-item" key={i}>
-                    <div className="our_best-item__img">
-                        <img src={`coffee-images/${item.image}`} alt="coffee-img"/>
-                    </div>
-                    <span className="our_best-item__title">{item.name}</span>
-                    <span className="our_best-item__price">{item.price}</span>
-                </li>
+                <CSSTransition timeout={500} classNames={"coffee__item"} key={i}>
+                    <Link to={`/our-coffee/${i}`}>
+                        <li className="our_best-item">
+                            <div className="our_best-item__img">
+                                <img src={`coffee-images/${item.image}`} alt="coffee-img"/>
+                            </div>
+                            <span className="our_best-item__title">{item.name}</span>
+                            <span className="our_best-item__price">{item.price}</span>
+                        </li>
+                    </Link>
+                </CSSTransition>
             )
         })
         return elems;
@@ -32,13 +39,13 @@ const MainPage = () => {
             <section className="main">
                 <div className="container">
                     <header>
-                        <Navbar/>
+                        <Navbar active="0" section="header"/>
                     </header>
                     <div className="main__title">
                         <h1 className="main__title__main">Everything You Love About Coffee</h1>
                         <h2 className="main__title__text">We makes every day full of energy and taste</h2>
                         <h2 className="main__title__text">Want to try our beans?</h2>
-                        <button className="main__title__btn">More</button>
+                        <Link to="/our-coffee"><button className="main__title__btn">More</button></Link>
                     </div>
                 </div>
             </section>
@@ -61,12 +68,12 @@ const MainPage = () => {
                 <div className="container">
                     <h2 className="our_best__title">Our best</h2>
                     <ul className="our_best__items">
-                        {process === 'fetched' ? renderCards(coffee) : null}
+                        {process === 'fetched' ? renderCards(coffee) : <img src="/coffee-images/spinner.svg" alt="spinner"/>}
                     </ul>
                 </div>
             </section>
             <footer>
-                <Navbar/>
+                <Navbar active="0" section="footer"/>
             </footer>
         </>
     )

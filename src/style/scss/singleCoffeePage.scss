@@ -3,30 +3,35 @@
 .about_it {
     margin-top: 70px;
     padding-bottom: 30px;
+
     &__title {
         color: black;
         text-align: center;
+        
         &:after {
-            display: flex;
-            align-items: center;
-            flex-direction: column;
+            @include flex;
             content: url(../../images/beans-black.svg);
             margin-top: 15px;
         }
     }
+
     span {
         display: flex;
         flex-direction: column;
+        justify-content: center;
         width: 418px;
     }
+
     &__text {
         text-align: start;
     }
+
     &__par {
         margin-top: 20px;
         display: flex;
         flex-direction: column;
     }
+    
     strong {
         @include font(400, 24px, black)
     }

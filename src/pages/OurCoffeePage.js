@@ -1,6 +1,9 @@
 import Navbar from "../components/Navbar"
 import { CoffeeService } from "../services/CoffeeService";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
+import { useRef } from "react";
 
 const OurCoffee = () => {
 
@@ -11,40 +14,72 @@ const OurCoffee = () => {
     const [search, setSearch] = useState("");
 
     useEffect(() => {
-        getBest("http://localhost:3001/all coffee")
+        getBest("http://localhost:3001/all_coffee")
             .then(res => {setCards(res);setFilteredCards(res)})
             .then(() => setProcess('fetched'))
+            .catch(e => console.log(e))
         getBest("http://localhost:3001/filters")
-            .then(res => setFilters(res));
+            .then(res => setFilters(res))
+            .catch(e => console.log(e))
     }, [getBest, setProcess])
 
     function renderCards(cards) {
-        const elems = cards.map((item, i) => {
+        const elems = cards.map(({id, image, name, country, price}) => {
             return (
-                <a href="#">
-                    <li className="filters_coffee-item" key={i}>
-                        <div className="filters_coffee-item__img">
-                            <img src={`coffee-images/${item.image}`} alt="coffee-img"/>
-                        </div>
-                        <span className="filters_coffee-item__title">{item.name}</span>
-                        <span className="filters_coffee-item__country">{item.country}</span>
-                        <span className="filters_coffee-item__price">{item.price}</span>
-                    </li>
-                </a>
+                <CSSTransition timeout={300} classNames={"coffee__item"} key={id}>
+                    <Link to={`/our-coffee/${id}`}>
+                        <li className="filters_coffee-item">
+                            <div className="filters_coffee-item__img">
+                                <img src={`coffee-images/${image}`} alt="coffee-img"/>
+                            </div>
+                            <span className="filters_coffee-item__title">{name}</span>
+                            <span className="filters_coffee-item__country">{country}</span>
+                            <span className="filters_coffee-item__price">{price}</span>
+                        </li>
+                    </Link>
+                </CSSTransition>
             )
         })
-        return elems;
+        return (
+            <TransitionGroup component={null}>
+                {elems}
+            </TransitionGroup>
+        )
+    }
+
+    const itemRefs = useRef([]);
+
+    const focusOnRef = (id) => {
+        itemRefs.current.forEach(item => item.classList.remove("filter_btn__active"));
+        itemRefs.current[id].classList.add("filter_btn__active");
+    }
+
+    function renderFilters(filters) {
+        const elems = filters.map((item, i) => {
+            return (
+                <button 
+                className="filter_btn" 
+                onClick={(e) => {filterState(item.name, cards, e); focusOnRef(i)}}
+                ref={el => itemRefs.current[i] = el} key={i}>{item.name}</button>
+            )
+        })
+        return elems
     }
     const filterState = (filter, cards, btn) => {
         const elems = cards.filter(item => item.country === filter)
         setFilteredCards(elems);
-        document.getElementsByClassName("filter_btn");
-        btn.target.classList.add("active")
     }
+
     const filterSearch = (value, cards) => {
         setSearch(value);
-        const elems = cards.filter(item => item.country.slice(0, value.length) == value);
+        clearFilters(cards);
+        const elems = cards.filter(item => item.country.slice(0, value.length) === value);
         setFilteredCards(elems);
+    }
+
+    const clearFilters = (cards) => {
+        itemRefs.current.forEach(item => item.classList.remove("filter_btn__active"));
+        setFilteredCards(cards)
     }
 
     return (
@@ -52,7 +87,7 @@ const OurCoffee = () => {
             <section className="head">
                 <div className="container">
                     <header>
-                        <Navbar/>
+                        <Navbar active="1" section="header"/>
                     </header>
                     <h1 className="head__title">Our Coffee</h1>
                 </div>
@@ -82,21 +117,22 @@ const OurCoffee = () => {
                                    value={search}></input>
                         </div>
                         <div className="filters">
-                            <label onClick={() => setFilteredCards(cards)} htmlFor="search">Or filter</label>
+                            <label onClick={() => clearFilters(cards)} htmlFor="search">Or filter</label>
                             <span className="filters__btns">
-                                <button className="filter_btn" onClick={(e) => filterState("Brazil", cards, e)}>Brazil</button>
-                                <button className="filter_btn" onClick={(e) => filterState("Kenya", cards, e)}>Kenya</button>
-                                <button className="filter_btn" onClick={(e) => filterState("Columbia", cards, e)}>Columbia</button>
+                                {renderFilters(filters)}
                             </span>
                         </div>
                     </div>
                     <ul className="filters_coffee__items">
-                        {process === 'fetched' ? renderCards(filteredCards) : null}
+                        {process === 'fetched' ? filteredCards.length !== 0 ? 
+                        renderCards(filteredCards) : 
+                        <p>There is no such coffee</p> : 
+                        <img src="/coffee-images/spinner.svg" alt="spinner"/>}
                     </ul>
                 </div>
             </section>
             <footer>
-                <Navbar/>
+                <Navbar active="1" section="footer"/>
             </footer>
         </>
     )

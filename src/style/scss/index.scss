@@ -5,6 +5,31 @@
     box-sizing: border-box;
 }
 
+@mixin font($weight, $size, $color:#fff) {
+    font-weight: $weight;
+    font-size: $size;
+    color: $color;
+    text-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+}
+
+@mixin head {
+    background-size: 100%;
+    background-repeat: no-repeat;
+    height: 260px;
+
+    &__title {
+        margin-top: 60px;
+        display: flex;
+        justify-content: center;
+    }
+}
+
+@mixin flex {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 ul,
 li {
     list-style: none;
@@ -18,11 +43,16 @@ button {
     cursor: pointer;
 }
 
-@mixin font($weight, $size, $color:#fff) {
-    font-weight: $weight;
-    font-size: $size;
-    color: $color;
-    text-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+h1 {
+    @include font(700, 40px);
+}
+
+h2 {
+    @include font(400, 24px);
+}
+
+p {
+    @include font(400, 14px, black);
 }
 
 .container {
@@ -30,58 +60,70 @@ button {
     margin: 0px auto;
 }
 
-
-h1 {
-    @include font(700, 40px);
-}
-
-h2 {
-    @include font(700, 24px);
-}
-p {
-    @include font(400, 14px, black);
-}
-
-
 header {
     padding-top: 30px;
+
     ul {
         display: flex;
         gap: 40px;
         align-items: end;
+
         a {
             @include font(400, 12px);
         }
+
         li {
             text-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
-            &:first-child::before {
-                content: url(../../images/beans.png);
-            }
         }
     }
 }
 
 footer {
     padding: 30px;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
+    @include flex;
+
     ul {
         display: flex;
         gap: 40px;
         align-items: end;
+
         a {
             @include font(700, 12px, black);
         }
+
         li {
             text-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
-            &:first-child::before {
-                content: url(../../images/beans2.png);
-            }
         }
     }
+
     &:after {
         margin-top: 30px;
         content: url(../../images/beans-black.svg);
     }
+}
+
+.coffee__item {
+    transition: 0.3s transform;
+    &-enter {
+        opacity: 0;
+    }
+    &-enter-active {
+        opacity: 1;
+        transition: opacity 300ms ease-in;
+    }
+    &-exit {
+        opacity: 1;
+    }
+    &-exit-active {
+        opacity: 0;
+        transition: opacity 300ms ease-in;
+    }
+}
+
+.b:before {
+    content: url(../../images/beans2.png);
+}
+
+.w:before {
+    content: url(../../images/beans.png);
 }

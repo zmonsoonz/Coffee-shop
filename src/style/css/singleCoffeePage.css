@@ -19,11 +19,6 @@ button {
   cursor: pointer;
 }
 
-.container {
-  max-width: 1140px;
-  margin: 0px auto;
-}
-
 h1 {
   font-weight: 700;
   font-size: 40px;
@@ -32,7 +27,7 @@ h1 {
 }
 
 h2 {
-  font-weight: 700;
+  font-weight: 400;
   font-size: 24px;
   color: #fff;
   text-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
@@ -43,6 +38,11 @@ p {
   font-size: 14px;
   color: black;
   text-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+}
+
+.container {
+  max-width: 1140px;
+  margin: 0px auto;
 }
 
 header {
@@ -66,22 +66,19 @@ header ul a {
 header ul li {
   text-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
 }
-header ul li:first-child::before {
-  content: url(../../images/beans.png);
-}
 
 footer {
   padding: 30px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 footer ul {
   display: -webkit-box;
@@ -101,12 +98,40 @@ footer ul a {
 footer ul li {
   text-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
 }
-footer ul li:first-child::before {
-  content: url(../../images/beans2.png);
-}
 footer:after {
   margin-top: 30px;
   content: url(../../images/beans-black.svg);
+}
+
+.coffee__item {
+  -webkit-transition: 0.3s -webkit-transform;
+  transition: 0.3s -webkit-transform;
+  transition: 0.3s transform;
+  transition: 0.3s transform, 0.3s -webkit-transform;
+}
+.coffee__item-enter {
+  opacity: 0;
+}
+.coffee__item-enter-active {
+  opacity: 1;
+  -webkit-transition: opacity 300ms ease-in;
+  transition: opacity 300ms ease-in;
+}
+.coffee__item-exit {
+  opacity: 1;
+}
+.coffee__item-exit-active {
+  opacity: 0;
+  -webkit-transition: opacity 300ms ease-in;
+  transition: opacity 300ms ease-in;
+}
+
+.b:before {
+  content: url(../../images/beans2.png);
+}
+
+.w:before {
+  content: url(../../images/beans.png);
 }
 
 .about_it {
@@ -121,13 +146,13 @@ footer:after {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   content: url(../../images/beans-black.svg);
   margin-top: 15px;
 }
@@ -139,6 +164,9 @@ footer:after {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   width: 418px;
 }
 .about_it__text {
